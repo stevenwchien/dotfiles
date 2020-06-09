@@ -4,10 +4,10 @@ cd Documents/work/wellsheet-app
 # tell if we are in iTerm or not
 if [[ $ITERM_PROFILE ]]
 then
-    source ~/dotfiles/.oh-my-zshrc
-    alias zshrc='emacs -nw ~/dotfiles/.oh-my-zshrc'
+    source ~/.oh-my-zshrc
+    alias zshrc='emacs -nw ~/.oh-my-zshrc'
 else
-    alias zshrc='emacs -nw ~/dotfiles/.zshrc'
+    alias zshrc='emacs -nw ~/.zshrc'
     
     # get version control information
     autoload -Uz vcs_info
