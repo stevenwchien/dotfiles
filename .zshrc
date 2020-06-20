@@ -1,5 +1,5 @@
 cd ~
-cd Documents/work/wellsheet-app
+cd Documents/work
 
 # tell if we are in iTerm or not
 if [[ $ITERM_PROFILE ]]
