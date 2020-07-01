@@ -72,11 +72,12 @@ HYPHEN_INSENSITIVE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git rails)
+plugins=(git rails zsh-autosuggestions)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+ZSH_AUTOSUGGEST_STRATEGY=(completion history)
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
