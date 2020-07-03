@@ -77,7 +77,7 @@ plugins=(git rails zsh-autosuggestions)
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
-ZSH_AUTOSUGGEST_STRATEGY=(completion history)
+ZSH_AUTOSUGGEST_STRATEGY=(history)
 
 # export MANPATH="/usr/local/man:$MANPATH"
 
