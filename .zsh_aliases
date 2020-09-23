@@ -22,3 +22,23 @@ alias rubocop-master='git branch --show-current | xargs git diff master...  --na
 
 alias rspec-mod='git ls-files -m -o --directory spec | grep _spec.rb | xargs bundle exec rspec'
 alias rspec-master='git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | xargs bundle exec rspec'
+
+rspecf() {
+ bundle exec rspec "$(find ./spec | fzf | tr -d '[:space:]')"
+}
+
+rspec-modf() {
+ bundle exec rspec "$(git ls-files -m -o --directory spec | grep _spec.rb | fzf | tr -d '[:space:]')"
+}
+
+rspec-masterf() {
+ bundle exec rspec "$(git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | fzf | tr -d '[:space:]')"
+}
+
+gsf() {
+ git switch "$(git branch -a | fzf | tr -d '[:space:]')"
+}
+
+gpnb() {
+ git branch --show-current | xargs git push --set-upstream origin
+}
