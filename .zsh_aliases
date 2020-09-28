@@ -24,20 +24,58 @@ alias rspec-mod='git ls-files -m -o --directory spec | grep _spec.rb | xargs bun
 alias rspec-master='git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | xargs bundle exec rspec'
 
 rspecf() {
- bundle exec rspec "$(find ./spec -name "*_spec.rb" | fzf)"
+ ./script/rspec_fzf.sh
 }
 
 rspec-modf() {
- bundle exec rspec "$(git ls-files -m -o --directory spec | grep _spec.rb | fzf)"
+ ./script/rspec_modified_fzf.sh
 }
 
 rspec-masterf() {
  bundle exec rspec "$(git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | fzf)"
 }
 
-gsf() {
- git switch "$(git branch -a | fzf | tr -d '[:space:]')"
+jestf() {
+ yarn jest "$(find ./spec/javascript -name "*spec*" | fzf)"
 }
+
+jest-modf() {
+ yarn jest "$(git ls-files -m -o --directory spec/javascript | fzf)"
+}
+
+fzf-git-branch() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    git branch --color=always --all --sort=-committerdate |
+        grep -v HEAD |
+        fzf --height 50% --ansi --no-multi --preview-window right:65% \
+            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+        sed "s/.* //"
+}
+
+fzf-git-checkout() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    local branch
+
+    branch=$(fzf-git-branch)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+
+    # If branch name starts with 'remotes/' then it is a remote branch. By
+    # using --track and a remote branch name, it is the same as:
+    # git checkout -b branchName --track origin/branchName
+    if [[ "$branch" = 'remotes/'* ]]; then
+        git checkout --track $branch
+    else
+        git checkout $branch;
+    fi
+}
+
+alias gb='fzf-git-branch'
+alias gcb='fzf-git-checkout'
 
 gpnb() {
  git branch --show-current | xargs git push --set-upstream origin
