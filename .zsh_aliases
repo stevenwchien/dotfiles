@@ -27,20 +27,20 @@ rspecf() {
  ./script/rspec_fzf.sh
 }
 
-rspec-modf() {
+rspecmodf() {
  ./script/rspec_modified_fzf.sh
 }
 
-rspec-masterf() {
+rspecmasterf() {
  bundle exec rspec "$(git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | fzf)"
 }
 
 jestf() {
- yarn jest "$(find ./spec/javascript -name "*spec*" | fzf)"
+ ./script/jest_fzf.sh
 }
 
-jest-modf() {
- yarn jest "$(git ls-files -m -o --directory spec/javascript | fzf)"
+jestmodf() {
+ ./script/jest_modified_fzf.sh
 }
 
 fzf-git-branch() {
