@@ -2,10 +2,19 @@
 
 " Plugins
 call plug#begin('~/.vim/plugged')
+
+" For Syntax
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'tomasiser/vim-code-dark'
+
+" For fuzzy finding
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+" Git
+Plug 'tpope/vim-fugitive'
 
 " Initialize plugin system
 call plug#end()
