@@ -41,6 +41,7 @@ set incsearch
 " Enable syntax highlighting
 syntax enable
 colorscheme codedark
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
 
 " Show line numbers
 set number
@@ -58,6 +59,6 @@ set wrap
 
 cmap w!! %!sudo tee % 
 
-" For JSX and TSX
-autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+" For zsh aliases
+let &shell='/bin/zsh -i'
 
