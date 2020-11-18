@@ -8,6 +8,7 @@ Plug 'maxmellon/vim-jsx-pretty'
 Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'tomasiser/vim-code-dark'
+Plug 'sheerun/vim-polyglot'
 
 " For fuzzy finding
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -16,6 +17,9 @@ Plug 'junegunn/fzf.vim'
 " Git
 Plug 'tpope/vim-fugitive'
 
+" For directories
+Plug 'preservim/nerdtree' |
+            \ Plug 'Xuyuanp/nerdtree-git-plugin'
 " Initialize plugin system
 call plug#end()
 
@@ -44,8 +48,8 @@ set number
 " Text, tab, spaces, and indent related
 set expandtab
 set smarttab
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 set lbr
 set tw=500
 set ai
