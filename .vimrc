@@ -9,6 +9,7 @@ Plug 'leafgarland/typescript-vim'
 Plug 'peitalin/vim-jsx-typescript'
 Plug 'tomasiser/vim-code-dark'
 Plug 'sheerun/vim-polyglot'
+Plug 'cakebaker/scss-syntax.vim'
 
 " For fuzzy finding
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -62,3 +63,6 @@ cmap w!! %!sudo tee %
 " For zsh aliases
 let &shell='/bin/zsh -i'
 
+" Custom keybindings
+" Remap jk to escape
+inoremap jk <Esc>
