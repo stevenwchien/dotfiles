@@ -1,14 +1,17 @@
+# Aliases
 alias emacs='emacs -nw'
-alias ohmyzshrc='emacs -nw ~/.oh-my-zshrc'
-alias zshrc='emacs -nw ~/.zshrc'
-alias zshaliases='emacs -nw ~/.zsh_aliases'
-alias tmuxconf='emacs ~/.tmux.conf'
-alias vimrc='vim ~/.vimrc'
-alias vimf='vim "$(fzf)"'
-alias tmux='tmux -2'
 alias ls='ls -a'
 alias rezsh='source ~/.zshrc'
+alias vimf='vim "$(fzf)"'
 
+# Editing config files
+alias ohmyzshrc='vim ~/.oh-my-zshrc'
+alias zshrc='vim ~/.zshrc'
+alias zshaliases='vim ~/.zsh_aliases'
+alias tmuxconf='vim ~/.tmux.conf'
+alias vimrc='vim ~/.vimrc'
+
+# Git aliases
 alias gs='git status'
 alias ga='git add'
 alias gc='git commit -v'
@@ -19,12 +22,14 @@ alias gap='git add --patch'
 alias gapa='git add --patch'
 alias gclean_local='git fetch -p && git branch -r | awk '"'"'{print $1}'"'"' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '"'"'{print $1}'"'"' | xargs git branch -D'
 
+# Run rubocop or rspec on all changes files
 alias rubocop-mod='git ls-files -m -o --directory app spec | grep -e '.rb' -e '.jbuilder' | xargs rubocop'
 alias rubocop-master='git branch --show-current | xargs git diff master...  --name-only | grep -e '.rb' -e '.jbuilder' | xargs rubocop'
 
 alias rspec-mod='git ls-files -m -o --directory spec | grep _spec.rb | xargs bundle exec rspec'
 alias rspec-master='git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | xargs bundle exec rspec'
 
+# Running specs through fuzzy finder
 rspecf() {
  ./script/rspec_fzf.sh
 }
@@ -45,6 +50,12 @@ jestmodf() {
  ./script/jest_modified_fzf.sh
 }
 
+# Git push new branch
+gpnb() {
+ git branch --show-current | xargs git push --set-upstream origin
+}
+
+# Git checkout with fuzzy finding
 fzf-git-branch() {
     git rev-parse HEAD > /dev/null 2>&1 || return
 
@@ -79,6 +90,3 @@ fzf-git-checkout() {
 alias gb='fzf-git-branch'
 alias gcb='fzf-git-checkout'
 
-gpnb() {
- git branch --show-current | xargs git push --set-upstream origin
-}
