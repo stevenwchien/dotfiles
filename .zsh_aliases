@@ -1,36 +1,26 @@
-# Aliases
+# -- Aliases -- #
 alias emacs='emacs -nw'
 alias ls='ls -a'
 alias rezsh='source ~/.zshrc'
 alias vimf='vim "$(fzf)"'
 
-# Editing config files
+# -- Editing config files -- #
 alias ohmyzshrc='vim ~/.oh-my-zshrc'
 alias zshrc='vim ~/.zshrc'
 alias zshaliases='vim ~/.zsh_aliases'
 alias tmuxconf='vim ~/.tmux.conf'
 alias vimrc='vim ~/.vimrc'
 
-# Git aliases
-alias gs='git status'
-alias ga='git add'
-alias gc='git commit -v'
-alias gl='git log'
-alias gl1='git log --oneline'
-alias gaa='git add --all'
-alias gap='git add --patch'
-alias gapa='git add --patch'
-alias gclean_local='git fetch -p && git branch -r | awk '"'"'{print $1}'"'"' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '"'"'{print $1}'"'"' | xargs git branch -D'
-alias gchb='git checkout -b'
-
-# Run rubocop or rspec on all changes files
-alias rubocop-mod='git ls-files -m -o --directory app spec | grep -e '.rb' -e '.jbuilder' | xargs rubocop'
-alias rubocop-master='git branch --show-current | xargs git diff master...  --name-only | grep -e '.rb' -e '.jbuilder' | xargs rubocop'
+# -- Tests and linters on all modified files -- #
+alias rubocopmod='git ls-files -m -o --directory app spec | grep -e '.rb' -e '.jbuilder' | xargs rubocop'
+alias rubocopmaster='git branch --show-current | xargs git diff master...  --name-only | grep -e '.rb' -e '.jbuilder' | xargs rubocop'
 
 alias rspecmod='git ls-files -m -o --directory spec | grep _spec.rb | xargs bundle exec rspec'
 alias rspecmaster='git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | xargs bundle exec rspec'
 
-# Running specs through fuzzy finder
+alias jestmod='yarn jest --onlyChanged'
+
+# -- Tests through fuzzy finder -- #
 rspecf() {
  ./script/rspec_fzf.sh
 }
@@ -48,13 +38,10 @@ jestf() {
 }
 
 jestmodf() {
- ./script/jest_modified_fzf.sh
+ ./script/jest_fzf.sh -d
 }
 
-# Git push new branch
-gpnb() {
- git branch --show-current | xargs git push --set-upstream origin
-}
+# -- Git related aliases -- #
 
 # Git checkout with fuzzy finding
 fzf-git-branch() {
@@ -78,9 +65,6 @@ fzf-git-checkout() {
         return
     fi
 
-    # If branch name starts with 'remotes/' then it is a remote branch. By
-    # using --track and a remote branch name, it is the same as:
-    # git checkout -b branchName --track origin/branchName
     if [[ "$branch" = 'remotes/'* ]]; then
         git checkout --track $branch
     else
@@ -88,6 +72,17 @@ fzf-git-checkout() {
     fi
 }
 
+alias ga='git add'
+alias gaa='git add --all'
+alias gap='git add --patch'
+alias gapa='git add --patch'
 alias gb='fzf-git-branch'
+alias gc='git commit -v'
 alias gcb='fzf-git-checkout'
+alias gchb='git checkout -b'
+alias gclean_local='git fetch -p && git branch -r | awk '"'"'{print $1}'"'"' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+alias gl='git log'
+alias gl1='git log --oneline'
+alias gpnb='git branch --show-current | xargs git push --set-upstream origin'
+alias gs='git status'
 
