@@ -40,3 +40,9 @@ test -r /Users/stevenchien/.opam/opam-init/init.zsh && . /Users/stevenchien/.opa
 
 # for whatever happens sometimes in git add --patch
 stty icrnl
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"
+eval "$(rbenv init -)"
+eval "$(nodenv init -)"

@@ -21,13 +21,14 @@ alias gaa='git add --all'
 alias gap='git add --patch'
 alias gapa='git add --patch'
 alias gclean_local='git fetch -p && git branch -r | awk '"'"'{print $1}'"'"' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+alias gchb='git checkout -b'
 
 # Run rubocop or rspec on all changes files
 alias rubocop-mod='git ls-files -m -o --directory app spec | grep -e '.rb' -e '.jbuilder' | xargs rubocop'
 alias rubocop-master='git branch --show-current | xargs git diff master...  --name-only | grep -e '.rb' -e '.jbuilder' | xargs rubocop'
 
-alias rspec-mod='git ls-files -m -o --directory spec | grep _spec.rb | xargs bundle exec rspec'
-alias rspec-master='git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | xargs bundle exec rspec'
+alias rspecmod='git ls-files -m -o --directory spec | grep _spec.rb | xargs bundle exec rspec'
+alias rspecmaster='git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | xargs bundle exec rspec'
 
 # Running specs through fuzzy finder
 rspecf() {
@@ -35,7 +36,7 @@ rspecf() {
 }
 
 rspecmodf() {
- ./script/rspec_modified_fzf.sh
+  ./script/rspec_fzf.sh -d
 }
 
 rspecmasterf() {
