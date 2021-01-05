@@ -42,6 +42,35 @@ jestmodf() {
 }
 
 # -- Git related aliases -- #
+fzf-git-branch-local() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    git branch --list --color=always --sort=-committerdate |
+      grep -v HEAD |
+      fzf --height 50% --ansi --no-multi --preview-window right:65% \
+            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+        sed "s/.* //"
+}
+
+fzf-git-delete-local-branch() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    local branch
+
+    branch=$(fzf-git-branch-local)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+
+    echo "Are you sure you want to delete" $branch"?"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes ) git branch -D $branch; break;;
+            No ) break;;
+        esac
+    done
+}
 
 # Git checkout with fuzzy finding
 fzf-git-branch() {
@@ -77,6 +106,7 @@ alias gaa='git add --all'
 alias gap='git add --patch'
 alias gapa='git add --patch'
 alias gb='fzf-git-branch'
+alias gbd='fzf-git-delete-local-branch'
 alias gc='git commit -v'
 alias gcb='fzf-git-checkout'
 alias gchb='git checkout -b'
