@@ -101,6 +101,24 @@ fzf-git-checkout() {
     fi
 }
 
+fzf-git-rename-branch() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+
+  local branch
+
+  branch=$(fzf-git-branch)
+  if [[ "$branch" = "" ]]; then
+    echo "No branch selected."
+    return
+  fi
+
+  echo "New name? "
+  read new_branch_name
+
+  # Rename branch locally
+  git branch -m "$branch" "$new_branch_name"
+}
+
 alias ga='git add'
 alias gaa='git add --all'
 alias gap='git add --patch'
@@ -114,5 +132,6 @@ alias gclean_local='git fetch -p && git branch -r | awk '"'"'{print $1}'"'"' | e
 alias gl='git log'
 alias gl1='git log --oneline'
 alias gpnb='git branch --show-current | xargs git push --set-upstream origin'
+alias grb='fzf-git-rename-branch'
 alias gs='git status'
 
