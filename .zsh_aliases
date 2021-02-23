@@ -101,12 +101,43 @@ fzf-git-checkout() {
     fi
 }
 
-fzf-git-rename-branch() {
+
+# Git checkout only local branches with fuzzy finding
+fzf-git-branch-local() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    git branch --color=always --sort=-committerdate |
+        grep -v HEAD |
+        fzf --height 50% --ansi --no-multi --preview-window right:65% \
+            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+        sed "s/.* //"
+}
+
+fzf-git-checkout-local() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    local branch
+
+    branch=$(fzf-git-branch-local)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+
+    if [[ "$branch" = 'remotes/'* ]]; then
+        git checkout --track $branch
+    else
+        git checkout $branch;
+    fi
+}
+
+
+fzf-git-rename-local-branch() {
   git rev-parse HEAD > /dev/null 2>&1 || return
 
   local branch
 
-  branch=$(fzf-git-branch)
+  branch=$(fzf-git-branch-local)
   if [[ "$branch" = "" ]]; then
     echo "No branch selected."
     return
@@ -127,11 +158,12 @@ alias gb='fzf-git-branch'
 alias gbd='fzf-git-delete-local-branch'
 alias gc='git commit -v'
 alias gcb='fzf-git-checkout'
+alias gcblocal='fzf-git-checkout-local'
 alias gchb='git checkout -b'
 alias gclean_local='git fetch -p && git branch -r | awk '"'"'{print $1}'"'"' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '"'"'{print $1}'"'"' | xargs git branch -D'
 alias gl='git log'
 alias gl1='git log --oneline'
 alias gpnb='git branch --show-current | xargs git push --set-upstream origin'
-alias grb='fzf-git-rename-branch'
+alias grb='fzf-git-rename-local-branch'
 alias gs='git status'
 
