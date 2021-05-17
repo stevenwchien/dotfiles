@@ -30,7 +30,7 @@ rspecmodf() {
 }
 
 rspecmasterf() {
- bundle exec rspec "$(git branch --show-current | xargs git diff master...  --name-only | grep _spec.rb | fzf)"
+  ./script/rspec_fzf.sh -D
 }
 
 jestf() {
@@ -39,6 +39,10 @@ jestf() {
 
 jestmodf() {
  ./script/jest_fzf.sh -d
+}
+
+jestmasterf() {
+  ./script/jest_fzf.sh -D
 }
 
 # -- Git related aliases -- #

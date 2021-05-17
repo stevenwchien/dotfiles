@@ -26,10 +26,6 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit && compinit
 
-# node and ruby env
-eval "$(rbenv init -)"
-eval "$(nodenv init -)"
-
 if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
@@ -40,9 +36,5 @@ test -r /Users/stevenchien/.opam/opam-init/init.zsh && . /Users/stevenchien/.opa
 
 # for whatever happens sometimes in git add --patch
 stty icrnl
-eval "$(rbenv init -)"
-eval "$(nodenv init -)"
-eval "$(rbenv init -)"
-eval "$(nodenv init -)"
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"
