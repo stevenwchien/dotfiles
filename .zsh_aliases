@@ -22,7 +22,7 @@ alias jestmod='yarn jest --onlyChanged'
 
 # -- Tests through fuzzy finder -- #
 rspecf() {
- ./script/rspec_fzf.sh
+  ./script/rspec_fzf.sh
 }
 
 rspecmodf() {
