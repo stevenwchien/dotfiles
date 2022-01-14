@@ -190,7 +190,9 @@ git-merge-master() {
   git merge master
 }
 
+
 alias activate='source venv/bin/activate'
+alias create_venv='python3 -m venv venv'
 alias ga='git add'
 alias gaa='git add --all'
 alias gap='git add --patch'
