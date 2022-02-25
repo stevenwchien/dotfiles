@@ -26,13 +26,8 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit && compinit
 
-if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-fi
-
-# opam configuration
-test -r /Users/stevenchien/.opam/opam-init/init.zsh && . /Users/stevenchien/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
-[ -f "/Users/stevenchien/.ghcup/env" ] && source "/Users/stevenchien/.ghcup/env" # ghcup-env
+eval "$(pyenv init --path)"
+export PATH="$HOME/.pyenv/bin:$PATH"
 
 # for whatever happens sometimes in git add --patch
 stty icrnl
