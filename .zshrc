@@ -1,5 +1,3 @@
-cd ~
-cd Documents/work
 
 # tell if we are in iTerm or not
 if [[ $ITERM_PROFILE ]]
@@ -33,3 +31,12 @@ export PATH="$HOME/.pyenv/bin:$PATH"
 stty icrnl
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"
+
+# opam configuration
+test -r /Users/stevenchien/.opam/opam-init/init.zsh && . /Users/stevenchien/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
+
+# Created by `pipx` on 2022-03-04 17:09:42
+export PATH="$PATH:/Users/stevenchien/Library/Python/3.9/bin"
+
+# Created by `pipx` on 2022-03-04 17:09:44
+export PATH="$PATH:/Users/stevenchien/.local/bin"
