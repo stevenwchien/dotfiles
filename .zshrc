@@ -1,23 +1,34 @@
+# Fig pre block. Keep at the top of this file.
+export PATH="${PATH}:${HOME}/.local/bin"
+eval "$(fig init zsh pre)"
 
-# tell if we are in iTerm or not
-if [[ $ITERM_PROFILE ]]
-then
-    source ~/.oh-my-zshrc    
-else    
-    # get version control information
-    autoload -Uz vcs_info
-    zstyle ':vcs_info:git*' formats "%{%{$fg[green]%} (%b)%{$reset_color%}%m%u%c%{$reset_color%}"
-    precmd() {
-	vcs_info
-    }
+# # tell if we are in iTerm or not
+# if [[ $ITERM_PROFILE ]]
+# then
+    
+# else    
+#     # get version control information
+#     autoload -Uz vcs_info
+#     zstyle ':vcs_info:git*' formats "%{%{$fg[green]%} (%b)%{$reset_color%}%m%u%c%{$reset_color%}"
+#     precmd() {
+# 	vcs_info
+#     }
 
-    setopt prompt_subst
+#     setopt prompt_subst
 
-    PS1=$'\e[0;36m%1d\e[0m\e[0;32m${vcs_info_msg_0_}\e[0m $ '
-fi
+#     PS1=$'\e[0;36m%1d\e[0m\e[0;32m${vcs_info_msg_0_}\e[0m $ '
+# fi
+
+source ~/.oh-my-zshrc
 
 # load our aliases
 source ~/.zsh_aliases
+
+# load git-related aliases
+source ~/.git_aliases
+
+# load work-related aliases
+source ~/.work_aliases
 
 # Load Git completion
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
@@ -40,3 +51,7 @@ export PATH="$PATH:/Users/stevenchien/Library/Python/3.9/bin"
 
 # Created by `pipx` on 2022-03-04 17:09:44
 export PATH="$PATH:/Users/stevenchien/.local/bin"
+
+# Fig post block. Keep at the bottom of this file.
+eval "$(fig init zsh post)"
+

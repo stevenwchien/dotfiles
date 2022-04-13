@@ -1,0 +1,180 @@
+fzf-git-branch-local() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    git branch --list --color=always --sort=-committerdate |
+      grep -v HEAD |
+      fzf --height 50% --ansi --no-multi --preview-window right:65% \
+            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+        sed "s/.* //"
+}
+
+fzf-git-delete-local-branch() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    local branch
+
+    branch=$(fzf-git-branch-local)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+
+    echo "Are you sure you want to delete" $branch"?"
+    select yn in "Yes" "No"; do
+        case $yn in
+            Yes ) git branch -D $branch; break;;
+            No ) break;;
+        esac
+    done
+}
+
+fzf-git-branch() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    git branch --color=always --all --sort=-committerdate |
+        grep -v HEAD |
+        fzf --height 50% --ansi --no-multi --preview-window right:65% \
+            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+        sed "s/.* //"
+}
+
+fzf-git-checkout() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    local branch
+
+    branch=$(fzf-git-branch)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+
+    if [[ "$branch" = 'remotes/'* ]]; then
+        git checkout --track $branch
+    else
+        git checkout $branch;
+    fi
+}
+
+
+fzf-git-branch-local() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    git branch --color=always --sort=-committerdate |
+        grep -v HEAD |
+        fzf --height 50% --ansi --no-multi --preview-window right:65% \
+            --preview 'git log -n 50 --color=always --date=short --pretty="format:%C(auto)%cd %h%d %s" $(sed "s/.* //" <<< {})' |
+        sed "s/.* //"
+}
+
+fzf-git-checkout-local() {
+    git rev-parse HEAD > /dev/null 2>&1 || return
+
+    local branch
+
+    branch=$(fzf-git-branch-local)
+    if [[ "$branch" = "" ]]; then
+        echo "No branch selected."
+        return
+    fi
+
+    if [[ "$branch" = 'remotes/'* ]]; then
+        git checkout --track $branch
+    else
+        git checkout $branch;
+    fi
+}
+
+
+fzf-git-rename-local-branch() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+
+  local branch
+
+  branch=$(fzf-git-branch-local)
+  if [[ "$branch" = "" ]]; then
+    echo "No branch selected."
+    return
+  fi
+
+  echo "New name? "
+  read new_branch_name
+
+  git branch -m "$branch" "$new_branch_name"
+}
+
+fzf-git-rebase-local-branch() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+
+  local thisbranch
+  thisbranch=$(git branch --show-current)
+
+  local tobranch
+  tobranch=$(fzf-git-branch-local)
+  if [[ "$tobranch" = "" ]]; then
+    echo "No branch selected."
+    return
+  fi
+  
+  if [[ "$tobranch" = 'remotes/'* ]]; then
+      git checkout --track $tobranch
+  else
+      git checkout $tobranch;
+  fi
+
+  git pull
+  git checkout "$thisbranch"
+
+  git rebase "$tobranch" -i
+}
+
+git-merge-master() {
+  local thisbranch
+  thisbranch=$(git branch --show-current)
+
+  git checkout master
+  git pull
+  git checkout "$thisbranch"
+  git merge master
+}
+
+fzf-git-select-changed-file() {
+  git diff --name-only | fzf --height 50% --ansi --no-multi --preview-window right:65% --preview 'git diff -- {-1} | diff-so-fancy'
+}
+
+fzf-git-restore-changed-file() {
+  git rev-parse HEAD > /dev/null 2>&1 || return
+
+  local filename_to_restore
+  filename_to_restore=$(fzf-git-select-changed-file)
+
+  echo "Are you sure you want to restore" $filename_to_restore"? All changes will be lost."
+  git diff -- $filename_to_restore
+  select yn in "Yes" "No"; do
+      case $yn in
+          Yes ) git restore $filename_to_restore; break;;
+          No ) break;;
+      esac
+  done
+}
+
+alias ga='git add'
+alias gaa='git add --all'
+alias gap='git add --patch'
+alias gapa='git add --patch'
+alias gb='fzf-git-branch'
+alias gbd='fzf-git-delete-local-branch'
+alias gc='git commit -v'
+alias gcb='fzf-git-checkout'
+alias gcblocal='fzf-git-checkout-local'
+alias gchb='git checkout -b'
+alias gclean_local='git fetch -p && git branch -r | awk '"'"'{print $1}'"'"' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '"'"'{print $1}'"'"' | xargs git branch -D'
+alias gd='git diff'
+alias gl='git log'
+alias gl1='git log --oneline'
+alias gmm='git-merge-master'
+alias gpnb='git branch --show-current | xargs git push --set-upstream origin'
+alias grenameb='fzf-git-rename-local-branch'
+alias grb='fzf-git-rebase-local-branch'
+alias grf='fzf-git-restore-changed-file'
+alias gs='git status'

@@ -6,3 +6,5 @@
 !.gitignore
 !.p10k.zsh
 !.vimrc
+!.git_aliases
+!.work_aliases
