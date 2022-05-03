@@ -1,7 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-export PATH="${PATH}:${HOME}/.local/bin"
-eval "$(fig init zsh pre)"
-
 # # tell if we are in iTerm or not
 # if [[ $ITERM_PROFILE ]]
 # then
@@ -51,7 +47,3 @@ export PATH="$PATH:/Users/stevenchien/Library/Python/3.9/bin"
 
 # Created by `pipx` on 2022-03-04 17:09:44
 export PATH="$PATH:/Users/stevenchien/.local/bin"
-
-# Fig post block. Keep at the bottom of this file.
-eval "$(fig init zsh post)"
-

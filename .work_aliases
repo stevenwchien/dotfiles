@@ -36,3 +36,4 @@ alias rspecmod='git diff-files --name-only --diff-filter=d | grep _spec.rb | xar
 alias rspecmaster='git branch --show-current | xargs git diff master  --name-only | grep _spec.rb | xargs bundle exec rspec'
 
 alias jestmod='yarn jest --onlyChanged'
+
