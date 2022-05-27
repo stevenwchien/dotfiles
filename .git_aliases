@@ -128,14 +128,14 @@ fzf-git-rebase-local-branch() {
   git rebase "$tobranch" -i
 }
 
-git-merge-master() {
+git-merge-main() {
   local thisbranch
   thisbranch=$(git branch --show-current)
 
-  git checkout master
+  git checkout main
   git pull
   git checkout "$thisbranch"
-  git merge master
+  git merge main
 }
 
 fzf-git-select-changed-file() {
@@ -172,7 +172,7 @@ alias gclean_local='git fetch -p && git branch -r | awk '"'"'{print $1}'"'"' | e
 alias gd='git diff'
 alias gl='git log'
 alias gl1='git log --oneline'
-alias gmm='git-merge-master'
+alias gmm='git-merge-main'
 alias gpnb='git branch --show-current | xargs git push --set-upstream origin'
 alias grenameb='fzf-git-rename-local-branch'
 alias grb='fzf-git-rebase-local-branch'
