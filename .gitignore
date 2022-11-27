@@ -1,11 +1,11 @@
 *
 !.alacritty.yml
-!.zshrc
-!.oh-my-zshrc
-!.zsh_aliases
-!.tmux.conf
 !.gitignore
+!.git_aliases
+!.oh-my-zshrc
 !.p10k.zsh
 !.vimrc
-!.git_aliases
 !.work_aliases
+!.tmux.conf
+!.zsh_aliases
+!.zshrc
