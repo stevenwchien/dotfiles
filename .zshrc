@@ -31,9 +31,6 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit && compinit
 
-eval "$(pyenv init --path)"
-export PATH="$HOME/.pyenv/bin:$PATH"
-
 # for whatever happens sometimes in git add --patch
 stty icrnl
 eval "$(rbenv init -)"
