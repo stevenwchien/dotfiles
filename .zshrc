@@ -44,3 +44,8 @@ export PATH="$PATH:/Users/stevenchien/Library/Python/3.9/bin"
 
 # Created by `pipx` on 2022-03-04 17:09:44
 export PATH="$PATH:/Users/stevenchien/.local/bin"
+
+# For pipenv
+export LC_ALL='en_US.UTF-8'
+export LANG='en_US.UTF-8'
+
