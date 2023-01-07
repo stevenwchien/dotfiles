@@ -64,6 +64,8 @@ cmap w!! %!sudo tee %
 " For zsh aliases
 let &shell='/bin/zsh -i'
 
+" Might fix the suspdending issue
+set shell=/bin/zsh\ -l
 " Custom keybindings
 " Remap jk to escape
 inoremap jk <Esc>

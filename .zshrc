@@ -32,7 +32,7 @@ fpath=(~/.zsh $fpath)
 autoload -Uz compinit && compinit
 
 # for whatever happens sometimes in git add --patch
-stty icrnl
+# stty icrnl
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"
 
