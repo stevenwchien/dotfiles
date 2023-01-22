@@ -49,3 +49,5 @@ export PATH="$PATH:/Users/stevenchien/.local/bin"
 export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 
+
+eval "$(jenv init -)"
