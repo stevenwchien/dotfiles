@@ -1,20 +1,4 @@
-# # tell if we are in iTerm or not
-# if [[ $ITERM_PROFILE ]]
-# then
-    
-# else    
-#     # get version control information
-#     autoload -Uz vcs_info
-#     zstyle ':vcs_info:git*' formats "%{%{$fg[green]%} (%b)%{$reset_color%}%m%u%c%{$reset_color%}"
-#     precmd() {
-# 	vcs_info
-#     }
-
-#     setopt prompt_subst
-
-#     PS1=$'\e[0;36m%1d\e[0m\e[0;32m${vcs_info_msg_0_}\e[0m $ '
-# fi
-
+# oh-my-zsh
 source ~/.oh-my-zshrc
 
 # load our aliases
@@ -48,6 +32,5 @@ export PATH="$PATH:/Users/stevenchien/.local/bin"
 # For pipenv
 export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
-
 
 eval "$(jenv init -)"
