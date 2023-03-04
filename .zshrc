@@ -1,3 +1,6 @@
+# Fig pre block. Keep at the top of this file.
+[[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+
 # oh-my-zsh
 source ~/.oh-my-zshrc
 
@@ -15,8 +18,6 @@ zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit && compinit
 
-# for whatever happens sometimes in git add --patch
-# stty icrnl
 eval "$(rbenv init -)"
 eval "$(nodenv init -)"
 
@@ -34,3 +35,6 @@ export LC_ALL='en_US.UTF-8'
 export LANG='en_US.UTF-8'
 
 eval "$(jenv init -)"
+
+# Fig post block. Keep at the bottom of this file.
+[[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
