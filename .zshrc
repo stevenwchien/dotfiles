@@ -1,25 +1,29 @@
 # Fig pre block. Keep at the top of this file.
 [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 
+# -- Aliases -- #
+alias emacs='emacs -nw'
+alias ls='ls -a -G'
+alias rezsh='source ~/.zshrc'
+alias vimf='vim "$(fzf)"'
+
+# -- Editing config files -- #
+alias ohmyzshrc='vim ~/.oh-my-zshrc'
+alias zshaliases='vim ~/.zsh_aliases'
+alias gitaliases='vim ~/.git-aliases'
+alias tmuxconf='vim ~/.tmux.conf'
+alias vimrc='vim ~/.vimrc'
+
 # oh-my-zsh
 source ~/.oh-my-zshrc
 
-# load our aliases
-source ~/.zsh_aliases
-
 # load git-related aliases
 source ~/.git_aliases
-
-# load work-related aliases
-source ~/.work_aliases
 
 # Load Git completion
 zstyle ':completion:*:*:git:*' script ~/.zsh/git-completion.bash
 fpath=(~/.zsh $fpath)
 autoload -Uz compinit && compinit
-
-# opam configuration
-test -r /Users/stevenchien/.opam/opam-init/init.zsh && . /Users/stevenchien/.opam/opam-init/init.zsh > /dev/null 2> /dev/null || true
 
 # Created by `pipx` on 2022-03-04 17:09:42
 export PATH="$PATH:/Users/stevenchien/Library/Python/3.9/bin"
