@@ -158,6 +158,65 @@ fzf-git-restore-changed-file() {
   done
 }
 
+helper-branch-name-to-worktree-name() {
+    local branch_name
+    branch_name=$1
+    echo ${branch_name//\//_}
+}
+
+fzf-git-worktree-name-select() {
+    git worktree list | fzf --height 50% --ansi --no-multi --preview-window right:65% | awk -F'[][]' '{print $2}'
+}
+
+fzf-git-worktree-directory-select() {
+    git worktree list | fzf --height 50% --ansi --no-multi --preview-window right:65% | awk '{print $1}'
+}
+
+fzf-checkout-worktree() {
+    local worktree_directory
+    worktree_directory=$(fzf-git-worktree-directory-select)
+    if [[ "$worktree_directory" = "" ]]; then
+        echo "No worktree selected."
+        return
+    fi
+    cd $worktree_directory
+}
+
+fzf-remove-worktree() {
+    local worktree_name
+    worktree_name=$(fzf-git-worktree-name-select)
+    if [[ "$worktree_name" = "" ]]; then
+        echo "No worktree selected."
+        return
+    fi
+    git worktree remove $worktree_name
+}
+
+create-worktree() {
+    local branch_name
+    branch_name=$1
+    if [[ "$branch_name" = "" ]]; then
+        echo "Branch name required."
+        echo "Usage: gwtch <branch_name>"
+        return
+    fi
+    git worktree add -b $branch_name ../$(helper-branch-name-to-worktree-name $branch_name)
+    cd ../$(helper-branch-name-to-worktree-name $branch_name)
+}
+
+create-worktree-and-init() {
+    local branch_name
+    branch_name=$1
+    if [[ "$branch_name" = "" ]]; then
+        echo "Branch name required."
+        echo "Usage: gwtinit <branch_name>"
+        return
+    fi
+    create-worktree $branch_name
+    cd ../$(helper-branch-name-to-worktree-name $branch_name)
+    rush update
+}
+
 alias ga='git add'
 alias gaa='git add --all'
 alias gap='git add --patch'
@@ -179,3 +238,7 @@ alias grb='fzf-git-rebase-local-branch'
 alias grf='fzf-git-restore-changed-file'
 alias gs='git status'
 alias gsup='git stash show -up'
+alias gwtch='create-worktree'
+alias gwtc='fzf-checkout-worktree'
+alias gwtremove='fzf-remove-worktree'
+alias gwtinit='create-worktree-and-init'
