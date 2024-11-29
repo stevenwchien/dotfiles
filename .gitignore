@@ -3,7 +3,6 @@
 !.gitignore
 !.git_aliases
 !.oh-my-zshrc
-!.p10k.zsh
 !.vimrc
 !.work_aliases
 !.tmux.conf
